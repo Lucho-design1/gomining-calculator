@@ -1,92 +1,208 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Minería en la Nube - GoMining</title>
-<style>
-body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; color: #333; }
-.container { max-width: 600px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-h1 { color: #2c3e50; text-align: center; }
-label { display: block; margin-top: 15px; font-weight: bold; }
-input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-button { margin-top: 20px; width: 100%; padding: 12px; background: #3498db; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-button:hover { background: #2980b9; }
-.result { margin-top: 25px; padding: 15px; background: #ecf0f1; border-radius: 4px; white-space: pre-wrap; }
-.affiliate-link { display: inline-block; margin-top: 20px; color: #e74c3c; text-decoration: none; font-weight: bold; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Minería en la Nube - GoMining ROI</title>
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --dark: #0f0c29;
+            --light: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #24243e 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            text-align: center;
+            background: linear-gradient(to right, var(--primary), #0052c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        input[type="number"]::placeholder {
+            color: #888;
+        }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            display: none;
+        }
+        .results.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-item {
+            display: flex;
+            justify-content: space;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        .result-label {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .cta-button {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 18px;
+            background: linear-gradient(to right, #f7971e, #ffd200);
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(247, 151, 30, 0.4);
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(247, 151, 30, 0.6);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<h1>Calculadora de Minería en la Nube</h1>
-<p>Estima tus ganancias potenciales con GoMining y obtén comisiones por referidos.</p>
-<label for="hashrate">Tasa de hash (TH/s):</label>
-<input type="number" id="hashrate" value="100" min="0" step="0.1">
+    <div class="container">
+        <h1>GoMining ROI Calculator</h1>
+        <p class="subtitle">Estima tus ganancias de minería de Bitcoin en la nube y descubre por qué la minería de hosting es la mejor opción.</p>
+        
+        <div class="form-group">
+            <label for="investment">Inversión Inicial (USD):</label>
+            <input type="number" id="investment" value="100" min="10" step="10">
+        </div>
+        <div class="form-group">
+            <label for="hashrate">Potencia de Hash (TH/s):</label>
+            <input type="number" id="hashrate" value="100" min="1" step="1">
+        </div>
+        <div class="form-group">
+            <label for="days">Período de Minería (Días):</label>
+            <input type="number" id="days" value="365" min="1" step="1">
+        </div>
+        
+        <button onclick="calculateROI()" style="width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold; transition: background 0.3s;">
+            Calcular Retorno de Inversión
+        </button>
 
-<label for="power">Consumo de energía (W):</label>
-<input type="number" id="power" value="3000" min="0" step="10">
+        <div id="results" class="results">
+            <h2 style="margin-top: 0; border-bottom: 2px solid var(--primary); padding-bottom: 10px;">Estimación de Resultados:</h2>
+            <div class="result-item">
+                <span class="result-label">BTC Minado Estimado:</span>
+                <span id="btc-result">0.00000000 BTC</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Valor en USD (A tipo de cambio actual):</span>
+                <span id="usd-result">$0.00</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Ganancia Neta Anual:</span>
+                <span id="net-result">$0.00</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">ROI Porcentual:</span>
+                <span id="roi-result">0.00%</span>
+            </div>
+            
+            <a href="https://gomining.com/?ref=tCW6U" target="_blank" class="cta-button">
+                🚀 Comenzar a Minar en GoMining con Referido Exclusivo (tCW6U)
+            </a>
+        </div>
 
-<label for="electricity">Costo de electricidad (USD/kWh):</label>
-<input type="number" id="electricity" value="0.10" min="0" step="0.01">
+        <div class="footer">
+            <p>Nota: Los valores son estimaciones basadas en la dificultad actual de Bitcoin y pueden variar. Las comisiones de referidos se aplican correctamente al registrarte con el código tCW6U.</p>
+        </div>
+    </div>
 
-<label for="period">Período de cálculo:</label>
-<select id="period">
-  <option value="24">24 horas</option>
-  <option value="7" selected>7 días</option>
-  <option value="30">30 días</option>
-</select>
+    <script>
+        // Simulación de datos de mercado en tiempo real para la calculadora
+        const BTC_PRICE = 65000; // Precio aproximado de Bitcoin en USD
+        const BLOCK_REWARD = 3.125; // Recompensa actual por bloque (Bitcoin Halving)
+        const BLOCK_TIME = 10; // Tiempo promedio por bloque en minutos
 
-<button onclick="calculate()">Calcular Ganancias</button>
+        function calculateROI() {
+            const investment = parseFloat(document.getElementById('investment').value) || 0;
+            const hashrate = parseFloat(document.getElementById('hashrate').value) || 0;
+            const days = parseFloat(document.getElementById('days').value) || 0;
 
-<div id="result" class="result" style="display:none;"></div>
+            if (investment <= 0 || hashrate <= 0 || days <= 0) {
+                alert('Por favor, ingresa valores válidos mayores a cero.');
+                return;
+            }
 
-<a href="https://gomining.com/?ref=tCW6U" target="_blank" class="affiliate-link">👉 Comenzar a minear en GoMining con mi enlace de afiliado</a>
-</div>
+            // Cálculo aproximado de BTC minado basado en la proporción de hashrate vs red total (asumiendo 500 EH/s para simplificar)
+            const networkHashrateEH = 500; 
+            const dailyBtc = (hashrate / (networkHashrateEH * 1000)) * (24 * 60 / BLOCK_TIME) * BLOCK_REWARD;
+            const totalBtc = dailyBtc * days;
+            const totalUsd = totalBtc * BTC_PRICE;
+            const netProfit = totalUsd - investment;
+            const roi = (netProfit / investment) * 100;
 
-<script>
-function calculate() {
-  const hashrate = parseFloat(document.getElementById('hashrate').value);
-  const power = parseFloat(document.getElementById('power').value);
-  const electricity = parseFloat(document.getElementById('electricity').value);
-  const period = parseInt(document.getElementById('period').value);
+            document.getElementById('btc-result').textContent = totalBtc.toFixed(8) + ' BTC';
+            document.getElementById('usd-result').textContent = '$' + totalUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('net-result').textContent = '$' + netProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('roi-result').textContent = roi.toFixed(2) + '%';
 
-  if (isNaN(hashrate) || isNaN(power) || isNaN(electricity)) {
-    alert('Por favor ingresa valores válidos.');
-    return;
-  }
-
-  // Estimación simplificada: asumimos 0.00001 BTC por TH/s por día (ejemplo)
-  const dailyBtc = hashrate * 0.00001;
-  const btcPrice = 45000; // Precio aproximado de BTC en USD
-  const dailyRevenue = dailyBtc * btcPrice;
-  const dailyElectricityCost = (power / 1000) * 24 * electricity;
-  const dailyProfit = dailyRevenue - dailyElectricityCost;
-
-  let totalProfit, totalRevenue, totalCost;
-  if (period === 24) {
-    totalProfit = dailyProfit;
-    totalRevenue = dailyRevenue;
-    totalCost = dailyElectricityCost;
-  } else if (period === 7) {
-    totalProfit = dailyProfit * 7;
-    totalRevenue = dailyRevenue * 7;
-    totalCost = dailyElectricityCost * 7;
-  } else {
-    totalProfit = dailyProfit * 30;
-    totalRevenue = dailyRevenue * 30;
-    totalCost = dailyElectricityCost * 30;
-  }
-
-  const resultDiv = document.getElementById('result');
-  resultDiv.style.display = 'block';
-  resultDiv.innerHTML = `
-    <strong>Resultados para ${period} horas/días:</strong>
-    Ingresos estimados: $${totalRevenue.toFixed(2)} USD
-    Costo de electricidad: $${totalCost.toFixed(2)} USD
-    Ganancia neta: $${totalProfit.toFixed(2)} USD
-    \n\n*Estimación basada en un precio de BTC de $45,000 USD. Los resultados reales pueden variar.*
-  `;
-}
-</script>
+            document.getElementById('results').classList.add('active');
+        }
+    </script>
 </body>
 </html>
