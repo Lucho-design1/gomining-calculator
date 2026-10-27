@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Minería en la Nube - GoMining</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; color: #333; }
+.container { max-width: 600px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+h1 { color: #2c3e50; text-align: center; }
+label { display: block; margin-top: 15px; font-weight: bold; }
+input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+button { margin-top: 20px; width: 100%; padding: 12px; background: #3498db; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+button:hover { background: #2980b9; }
+.result { margin-top: 25px; padding: 15px; background: #ecf0f1; border-radius: 4px; white-space: pre-wrap; }
+.affiliate-link { display: inline-block; margin-top: 20px; color: #e74c3c; text-decoration: none; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Calculadora de Minería en la Nube</h1>
+<p>Estima tus ganancias potenciales con GoMining y obtén comisiones por referidos.</p>
+<label for="hashrate">Tasa de hash (TH/s):</label>
+<input type="number" id="hashrate" value="100" min="0" step="0.1">
+
+<label for="power">Consumo de energía (W):</label>
+<input type="number" id="power" value="3000" min="0" step="10">
+
+<label for="electricity">Costo de electricidad (USD/kWh):</label>
+<input type="number" id="electricity" value="0.10" min="0" step="0.01">
+
+<label for="period">Período de cálculo:</label>
+<select id="period">
+  <option value="24">24 horas</option>
+  <option value="7" selected>7 días</option>
+  <option value="30">30 días</option>
+</select>
+
+<button onclick="calculate()">Calcular Ganancias</button>
+
+<div id="result" class="result" style="display:none;"></div>
+
+<a href="https://gomining.com/?ref=tCW6U" target="_blank" class="affiliate-link">👉 Comenzar a minear en GoMining con mi enlace de afiliado</a>
+</div>
+
+<script>
+function calculate() {
+  const hashrate = parseFloat(document.getElementById('hashrate').value);
+  const power = parseFloat(document.getElementById('power').value);
+  const electricity = parseFloat(document.getElementById('electricity').value);
+  const period = parseInt(document.getElementById('period').value);
+
+  if (isNaN(hashrate) || isNaN(power) || isNaN(electricity)) {
+    alert('Por favor ingresa valores válidos.');
+    return;
+  }
+
+  // Estimación simplificada: asumimos 0.00001 BTC por TH/s por día (ejemplo)
+  const dailyBtc = hashrate * 0.00001;
+  const btcPrice = 45000; // Precio aproximado de BTC en USD
+  const dailyRevenue = dailyBtc * btcPrice;
+  const dailyElectricityCost = (power / 1000) * 24 * electricity;
+  const dailyProfit = dailyRevenue - dailyElectricityCost;
+
+  let totalProfit, totalRevenue, totalCost;
+  if (period === 24) {
+    totalProfit = dailyProfit;
+    totalRevenue = dailyRevenue;
+    totalCost = dailyElectricityCost;
+  } else if (period === 7) {
+    totalProfit = dailyProfit * 7;
+    totalRevenue = dailyRevenue * 7;
+    totalCost = dailyElectricityCost * 7;
+  } else {
+    totalProfit = dailyProfit * 30;
+    totalRevenue = dailyRevenue * 30;
+    totalCost = dailyElectricityCost * 30;
+  }
+
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = `
+    <strong>Resultados para ${period} horas/días:</strong>
+    Ingresos estimados: $${totalRevenue.toFixed(2)} USD
+    Costo de electricidad: $${totalCost.toFixed(2)} USD
+    Ganancia neta: $${totalProfit.toFixed(2)} USD
+    \n\n*Estimación basada en un precio de BTC de $45,000 USD. Los resultados reales pueden variar.*
+  `;
+}
+</script>
+</body>
+</html>
